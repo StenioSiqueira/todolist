@@ -3,46 +3,47 @@ import { Button } from "../Button";
 import { Box } from "../Box";
 
 export const Table = () => {
-  const [addForm, setAddForm] = useState(false);
   const [newData, setNewData] = useState([]);
-  const [text, setText] = useState("");
+  const [item, setItem] = useState({});
 
-  const handleAddForm = () => {
-    setAddForm(true);
+  const handleDelete = (id) => {
+    const newList = newData.filter((element) => {
+      return element.id !== id;
+    });
+    setNewData(newList);
+    console.log(id);
+    console.log(newList);
   };
 
-  const handleChange = ({ target: { value } }) => {
-    setText(value);
+  const handleChange = (value, id) => {
+    setItem((prev) => value, id);
   };
 
   const handleAdd = () => {
-    newData.push(text);
-    setText("");
-    setAddForm(false);
+      setNewData((prev) => [...prev, item]);
+      console.log(item);
   };
 
-  const handleCreate = () => {
-    if (addForm === true) {
-      return (
-        <>
-          <input type="text" value={text} onChange={handleChange} />{" "}
-          <button onClick={handleAdd}> Salvar</button>
-        </>
-      );
-    }
-  };
   return (
     <>
-      <Box>
-        <table>
-          <thead>
-            <p>Descrição</p>
-          </thead>
-          <tbody>{newData}</tbody>
-        </table>
-        <Button handle={handleAddForm} tag={"Adicionar"} />
-      </Box>
-      <Box>{handleCreate()}</Box>
+      <input
+        id={Math.random()}
+        type="text"
+        onChange={({ target: { value, id } }) => {
+          handleChange({ value, id });
+        }}
+      />{" "}
+      <button onClick={handleAdd}> Salvar</button>
+      <div>
+        {newData.map((element, key) => {
+          return (
+            <div key={key}>
+              {element.value}
+              <Button tag={"Delete"} handle={() => handleDelete(element.id)} />
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };
