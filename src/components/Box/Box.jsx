@@ -1,12 +1,14 @@
-import { makeStyles } from '@material-ui/styles'
+// import { makeStyles, createStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles({ 
-    table: { 
-       backGroundColor: "black"
-    }
-   });
+// export const useStyles = makeStyles(() => 
+//     createStyles({
+//         container: { 
+//             backGroundColor: "white"
+//         }
+
+//     }))
 
 export const Box = () => { 
-    const container = useStyles()
-    return <spam className={container.table}></spam>
+    // const container = useStyles()
+    return <div></div>
 }
